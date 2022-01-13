@@ -1,0 +1,24 @@
+- name: 'Provision Image'  
+  hosts: default 
+  become: true
+
+  tasks:    
+    - name: apt update machines      
+      apt:
+        update_cache: yes
+        upgrade: dist
+        autoremove: true
+    - name: install packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - linux-generic
+        - linux-headers-generic
+        - linux-image-generic
+        - qemu-guest-agent
+        - cloud-init
+        - iputils-ping
+        - curl
+        - wget
+        - nfs-common
