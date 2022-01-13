@@ -1,0 +1,3 @@
+./ansible/vault
+ubuntu-vars.json
+/ignore
