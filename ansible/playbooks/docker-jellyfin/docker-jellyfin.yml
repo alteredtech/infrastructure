@@ -1,0 +1,80 @@
+- name: 'Docker install jellyfin hardware acceleration'
+  hosts: jellyfin
+
+  tasks:
+    - name: apt update
+      become: true
+      apt:
+        update_cache: yes
+        upgrade: dist
+        autoremove: true
+    - name: create docker group
+      become: yes
+      group:
+        name: docker
+        state: present
+    - name: create video group
+      become: yes
+      group:
+        name: video
+        state: present
+    - name: install docker-compose
+      become: yes
+      shell: |
+        curl -L "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        chmod +x /usr/local/bin/docker-compose
+        apt update
+    - name: install nvidia-docker gpg
+      become: yes
+      shell: |
+        curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add -
+        distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+        curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list
+        apt update
+    - name: add graphics drivers repo
+      become: yes
+      apt_repository:
+        repo: ppa:graphics-drivers/ppa
+    - name: create {{project_root}}/docker/jellyfin directory
+      file:
+        path: "{{ item }}"
+        state: directory
+        recurse: yes
+      with_items:
+        - ${HOME}/docker/jellyfin
+        - ${HOME}/media
+    - name: create jellyfin files
+      copy:
+        src: "{{ item }}"
+        dest: ${HOME}/docker/jellyfin
+      with_items:
+        - docker-compose.yml
+        - .env
+    - name: install packages
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - docker.io
+        - nfs-common
+        - ubuntu-drivers-common
+        - nvidia-driver-495
+        - nvidia-container-toolkit
+    - name: added '{{ ansible_ssh_user }}' to group
+      become: yes
+      user:
+        name: "{{ ansible_ssh_user }}"
+        groups: docker,video
+        append: yes
+    - name: apt update
+      become: true
+      apt:
+        update_cache: yes
+        upgrade: dist
+        autoremove: true
+    - name: reboot machine
+      become: yes
+      reboot:
+    - name: start jellyfin
+      command: docker-compose -f ${HOME}/docker/jellyfin/docker-compose.yml up -d

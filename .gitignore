@@ -2,3 +2,5 @@
 ubuntu-vars.json
 **/ignore
 payload.json
+**/vault
+/.env

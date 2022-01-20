@@ -1,24 +1,17 @@
 #required variables
-variable "proxmox_host" {
-  type    = string
-  default = vault("kv/data/prox-node-1","prox-host")
+
+locals {
+  proxmox_host = vault("kv/data/prox-node-1","prox-host")
+  proxmox_api_user = vault("kv/data/prox-node-1","prox-user")
+  proxmox_api_token_name = vault("kv/data/prox-node-1","prox-token-name")
+  proxmox_api_token = vault("kv/data/prox-node-1","prox-api-token")
+  ssh_username = vault("kv/data/prox-node-1","username")  
+  ssh_password = vault("kv/data/prox-node-1","password")
+  ssh_fullname = "packer"
 }
 variable "proxmox_node" {
   type    = string
   default = "pve"
-}
-variable "proxmox_api_user" {
-  type    = string
-  default = vault("kv/data/prox-node-1","prox-user")
-}
-variable "proxmox_api_token_name" {
-  type    = string
-  default = vault("kv/data/prox-node-1","prox-token-name")
-}
-variable "proxmox_api_token" {
-  type    = string
-  default = vault("kv/data/prox-node-1","prox-api-token")
-  // secret = true
 }
 variable "iso" {
   type    = string
@@ -27,6 +20,14 @@ variable "iso" {
 variable "iso_checksum" {
   type    = string
   default = "sha256:f11bda2f2caed8f420802b59f382c25160b114ccc665dbac9c5046e7fceaced2"
+}
+variable "vault_addr" {
+  type = string
+  default = "${env("VAULT_ADDR")}"
+}
+variable "vault_token" {
+  type = string
+  default = "${env("VAULT_TOKEN")}"
 }
 
 #other/optional variables
@@ -41,11 +42,7 @@ variable "template_description" {
 
 variable "ssh_info" {
   type = map(string)
-  default = {      
-    "username" = vault("kv/data/prox-node-1","username")     
-    "fullname" = "packer"      
-    "password" = vault("kv/data/prox-node-1","password")    
-  }
+  default = {  }
   // secret = true  
 }
 

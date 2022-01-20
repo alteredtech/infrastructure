@@ -1,6 +1,8 @@
 - name: 'Provision Image'  
   hosts: default 
   become: true
+  vars_files:
+    - ./vars.yml
 
   tasks:    
     - name: apt update machines      
@@ -8,6 +10,7 @@
         update_cache: yes
         upgrade: dist
         autoremove: true
+
     - name: install packages
       apt:
         name: "{{ item }}"
@@ -17,13 +20,44 @@
         - linux-headers-generic
         - linux-image-generic
         - qemu-guest-agent
-        - cloud-init
         - iputils-ping
         - curl
         - wget
         - nfs-common
+
     - name: Add public SSH key for the packer user
       authorized_key:
         user: packer
-        key: '{{ lookup('hashi_vault', 'secret=kv/data/ssh-pub-key token=s.FqUJTRCqoUA6rVDoMmMEuCQo url=http://10.0.2.139:8200')}}'
+        key: "{{ item }}"
         state: present
+      loop: "{{ query('hashi_vault', 'secret=kv/data/ssh-pub-key', token=vault_token, url=vault_addr, return_format='values') }}"
+      register: add_identity_key
+      when: vault_token is defined and vault_addr is defined
+
+    - name: Disable empty password login
+      lineinfile:
+        dest: "{{ sshd_config }}" 
+        regexp: '^#?PermitEmptyPasswords' 
+        line: 'PermitEmptyPasswords no'
+      notify: restart sshd
+
+    - name: Disable remote root login
+      lineinfile: 
+        dest: "{{ sshd_config }}" 
+        regexp: '^#?PermitRootLogin' 
+        line: 'PermitRootLogin no'
+      notify: restart sshd
+
+    - name: Disable password login
+      lineinfile: 
+        dest: "{{ sshd_config }}" 
+        regexp: '^(#\s*)?PasswordAuthentication '
+        line: 'PasswordAuthentication no'
+      when: 
+        - add_identity_key is succeeded 
+        - not add_identity_key is skipped
+      notify: restart sshd
+
+  handlers:
+    - name: restart sshd
+      service: name={{ sshd }} state=restarted

@@ -1,0 +1,35 @@
+---
+version: "3.1"
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - ${HOMEDIR}/docker/jellyfin/config:/config
+      - ${HOMEDIR}/media/tv-shows:/data/tvshows
+      - ${HOMEDIR}/media/movies:/data/movies
+      - ${HOMEDIR}/docker/jellyfin/cache:/cache
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional for HTTPS
+#      - 7359:7359/udp #optional
+#      - 1900:1900/udp #optional
+    restart: unless-stopped
+    devices:
+    - "/dev/nvidia0:/dev/nvidia0"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - 'driver': 'nvidia'
+            'count': 1
+            'capabilities': ['gpu', 'utility', 'compute', 'video']
+    devices:
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
+      - /dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools
