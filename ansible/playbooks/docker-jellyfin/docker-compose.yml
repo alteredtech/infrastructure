@@ -14,12 +14,13 @@ services:
       - ${HOMEDIR}/docker/jellyfin/config:/config
       - ${HOMEDIR}/media/tv-shows:/data/tvshows
       - ${HOMEDIR}/media/movies:/data/movies
+      - ${HOMEDIR}/media:/media
       - ${HOMEDIR}/docker/jellyfin/cache:/cache
     ports:
       - 8096:8096
       - 8920:8920 #optional for HTTPS
-#      - 7359:7359/udp #optional
-#      - 1900:1900/udp #optional
+      - 7359:7359/udp #optional local discovery
+      - 1900:1900/udp #optional
     restart: unless-stopped
     devices:
     - "/dev/nvidia0:/dev/nvidia0"

@@ -50,6 +50,8 @@
       with_items:
         - docker-compose.yml
         - .env
+      tags:
+        - recreate
     - name: install packages
       become: yes
       apt:
@@ -77,4 +79,6 @@
       become: yes
       reboot:
     - name: start jellyfin
-      command: docker-compose -f ${HOME}/docker/jellyfin/docker-compose.yml up -d
+      command: docker-compose -f ${HOME}/docker/jellyfin/docker-compose.yml up -d --force-recreate
+      tags:
+        - recreate
