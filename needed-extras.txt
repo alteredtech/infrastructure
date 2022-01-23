@@ -9,4 +9,3 @@ env vault_token
 [ON REMOTE HOST]
 pip docker
 pip docker-compose
-
