@@ -4,3 +4,6 @@ ubuntu-vars.json
 payload.json
 **/vault
 /.env
+*.tfvars
+*.tfstate*
+.terraform*
