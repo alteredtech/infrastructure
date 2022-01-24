@@ -63,6 +63,11 @@
         - ubuntu-drivers-common
         - nvidia-driver-495
         - nvidia-container-toolkit
+    - name: remove desktop
+      become: yes
+      apt:
+        name: ubuntu-desktop
+        state: absent
     - name: added '{{ ansible_ssh_user }}' to group
       become: yes
       user:

@@ -4,15 +4,16 @@ resource "proxmox_vm_qemu" "test-resource" {
   name        = "test-vm-${count.index + 1}"
   agent       = 1
   target_node = "pve"
-  clone       = "ubuntu-20-04-legacy-LTS-2022-01-22-T21-46-08-UTC"
-  full_clone  = true
-  memory      = 2048
-  balloon     = 512
-  os_type     = "ubuntu"
-  cores       = 2
-  sockets     = 1
-  scsihw      = "lsi"
-  bootdisk    = "scsi0"
+  clone       = var.template_name
+  // clone       = "ubuntu-20-04-legacy-LTS-2022-01-22-T21-46-08-UTC"
+  full_clone = true
+  memory     = 2048
+  balloon    = 512
+  os_type    = "ubuntu"
+  cores      = 2
+  sockets    = 1
+  scsihw     = "lsi"
+  bootdisk   = "scsi0"
   disk {
     slot = 0
     # set disk size here. leave it small for testing because expanding the disk takes time.

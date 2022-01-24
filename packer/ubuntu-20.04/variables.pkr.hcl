@@ -1,13 +1,13 @@
 #required variables
 
 locals {
-  proxmox_host = vault("kv/data/prox-node-1","prox-host")
-  proxmox_api_user = vault("kv/data/prox-node-1","prox-user")
-  proxmox_api_token_name = vault("kv/data/prox-node-1","prox-token-name")
-  proxmox_api_token = vault("kv/data/prox-node-1","prox-api-token")
-  ssh_username = vault("kv/data/prox-node-1","username")  
-  ssh_password = vault("kv/data/prox-node-1","password")
-  ssh_fullname = "packer"
+  proxmox_host           = vault("kv/data/prox-node-1", "prox-host")
+  proxmox_api_user       = vault("kv/data/prox-node-1", "prox-user")
+  proxmox_api_token_name = vault("kv/data/prox-node-1", "prox-token-name")
+  proxmox_api_token      = vault("kv/data/prox-node-1", "prox-api-token")
+  ssh_username           = vault("kv/data/prox-node-1", "username")
+  ssh_password           = vault("kv/data/prox-node-1", "password")
+  ssh_fullname           = "packer"
 }
 variable "proxmox_node" {
   type    = string
@@ -22,18 +22,18 @@ variable "iso_checksum" {
   default = "sha256:f11bda2f2caed8f420802b59f382c25160b114ccc665dbac9c5046e7fceaced2"
 }
 variable "vault_addr" {
-  type = string
+  type    = string
   default = "${env("VAULT_ADDR")}"
 }
 variable "vault_token" {
-  type = string
+  type    = string
   default = "${env("VAULT_TOKEN")}"
 }
 
 #other/optional variables
 variable "template_name" {
   type    = string
-  default = "ubuntu-20-04-legacy-LTS-{{ isotime \"2006-01-02-T15-04-05\" }}-UTC"
+  default = "tplate-ubuntu-20-04-legacy-LTS-{{ isotime \"2006-01-02-T15-04-05\" }}-UTC"
 }
 variable "template_description" {
   type    = string
@@ -41,8 +41,8 @@ variable "template_description" {
 }
 
 variable "ssh_info" {
-  type = map(string)
-  default = {  }
+  type    = map(string)
+  default = {}
   // secret = true  
 }
 
@@ -50,24 +50,24 @@ variable "hostname" {
   type    = string
   default = "ubuntu-20-04-1-cloudinit"
 }
-variable "vmid" {
-  type    =  number
-  default = 4002
-}
+// variable "vmid" {
+//   type    =  number
+//   default = 4004
+// }
 variable "locale" {
   type    = string
   default = "en_US"
 }
 variable "cores" {
-  type    =  number
+  type    = number
   default = 2
 }
 variable "sockets" {
-  type    =  number
+  type    = number
   default = 1
 }
 variable "memory" {
-  type    =  number
+  type    = number
   default = 2048
 }
 variable "disk_size" {
@@ -84,7 +84,7 @@ variable "datastore_type" {
 }
 
 variable "iso_location" {
-  type = string
+  type    = string
   default = "truenas-isos:iso"
 }
 

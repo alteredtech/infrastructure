@@ -5,9 +5,9 @@ source "proxmox" "ubuntu-2004" {
   insecure_skip_tls_verify = true
   username                 = "${local.proxmox_api_user}!${local.proxmox_api_token_name}"
   token                    = "${local.proxmox_api_token}"
-  vm_id                    = "${var.vmid}"
-  vm_name                  = "${var.template_name}"
-  template_description     = "${var.template_description}"
+  // vm_id                    = "${var.vmid}"
+  vm_name              = "${var.template_name}"
+  template_description = "${var.template_description}"
 
   #vm hardware configurations
   sockets      = "${var.sockets}"
@@ -31,8 +31,8 @@ source "proxmox" "ubuntu-2004" {
     model  = "virtio"
   }
 
-  qemu_agent     = true
-  unmount_iso    = true
+  qemu_agent  = true
+  unmount_iso = true
   ssh_password   = "${local.ssh_password}"
   ssh_timeout    = "90m"
   ssh_username   = "${local.ssh_username}"
@@ -61,16 +61,18 @@ build {
 
   provisioner "shell" {
     execute_command = "echo 'packer' | sudo -S -E bash '{{ .Path }}'"
-    script = "scripts/setup.sh"
+    script          = "scripts/setup.sh"
   }
 
   provisioner "ansible" {
-    extra_arguments  = [
+    extra_arguments = [
       "-v",
       "-e ansible_ssh_pass=${local.ssh_password} VAULT_ADDR='${var.vault_addr}' VAULT_TOKEN='${var.vault_token}'"]
     ansible_env_vars = ["ANSIBLE_CONFIG=playbook/ansible.cfg"]
     playbook_file    = "./playbook/${var.ansible_play}.yml"
     use_proxy        = false
   }
-
+  post-processor "shell-local" {
+    inline = ["echo ${var.template_name}"]
+  }
 }

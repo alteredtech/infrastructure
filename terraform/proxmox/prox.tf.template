@@ -1,0 +1,5 @@
+# "prox.tf" was automatically generated from the template "prox.tf.template".
+variable "template_name" {
+  default     = "${TEMPLATE_GENERATED_BY_PACKER}"
+  description = "The latest Template."
+}
