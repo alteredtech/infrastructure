@@ -13,9 +13,6 @@ terraform {
 }
 
 provider "proxmox" {
-  //   pm_api_url          = "https://${data.vault_generic_secret.prox_terra_get.data["prox-terra-api-url"]}/api2/json"
-  //   pm_api_token_id     = "${data.vault_generic_secret.prox_terra_get.data["prox-terra-api-user"]}!${data.vault_generic_secret.prox_terra_get.data["prox-terra-api-token-name"]}"
-  //   pm_api_token_secret = "${data.vault_generic_secret.prox_terra_get.data["prox-terra-api-token"]}"
   pm_api_url          = local.prox_api_url
   pm_api_token_id     = local.prox_api_id
   pm_api_token_secret = local.prox_api_token

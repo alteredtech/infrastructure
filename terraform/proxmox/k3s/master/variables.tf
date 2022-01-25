@@ -1,0 +1,1 @@
+# --- proxmox-root/k3s/master/variables.tf
