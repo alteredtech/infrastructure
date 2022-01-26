@@ -16,6 +16,8 @@ source "proxmox" "ubuntu-2004" {
   os           = "l26"
   iso_file     = "${var.iso_location}/${var.iso}"
   iso_checksum = "${var.iso_checksum}"
+  cloud_init = true
+  cloud_init_storage_pool = "${var.datastore}"
 
   disks {
     cache_mode        = "writeback"
