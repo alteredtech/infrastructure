@@ -1,0 +1,2 @@
+vault_token: "{{ VAULT_TOKEN }}"
+vault_addr: "{{ VAULT_ADDR }}"

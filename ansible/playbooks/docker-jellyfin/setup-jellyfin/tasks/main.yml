@@ -1,0 +1,18 @@
+- name: create {{project_root}}/docker/jellyfin directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  with_items:
+    - ${HOME}/docker/jellyfin
+    - ${HOME}/media
+
+  - name: create jellyfin files
+  copy:
+    src: "{{ item }}"
+    dest: ${HOME}/docker/jellyfin
+  with_items:
+    - ${playbook_dir}/docker-compose.yml
+    - ${playbook_dir}/.env
+  tags:
+    - recreate

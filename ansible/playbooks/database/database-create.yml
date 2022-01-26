@@ -1,0 +1,7 @@
+- name: create database docker containers
+  hosts: sandbox
+
+  roles:
+    - update-install
+    - mount
+    - docker-containers

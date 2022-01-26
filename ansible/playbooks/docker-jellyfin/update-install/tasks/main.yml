@@ -1,0 +1,12 @@
+- name: apt update
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: dist
+    autoremove: true
+
+- name: install nfs-common
+  become: yes
+  apt:
+    name: "nfs-common"
+    state: present

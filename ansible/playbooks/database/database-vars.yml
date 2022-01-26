@@ -1,4 +1,0 @@
-vault_token: "{{ VAULT_TOKEN }}"
-vault_addr: "{{ VAULT_ADDR }}"
-fstab_config: /etc/fstab
-mount_point: 'lilnas.alteredtech.home:/mnt/alt-tech-main/backups'
