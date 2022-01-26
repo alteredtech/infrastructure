@@ -2,9 +2,11 @@
 
 qm destroy 9000
 # create a new VM
+# TODO create automatic way of inputting name
 qm create 9000 --name focal-2004-cloudinit --memory 512 --net0 virtio,bridge=vmbr0
 
 # import the downloaded disk to local-lvm storage
+# TODO create automatic way of inputting path and img
 qm importdisk 9000 /mnt/pve/truenas-isos/template/iso/focal-server-cloudimg-amd64.qcow2 local-main
 
 # finally attach the new disk to the VM as scsi drive
