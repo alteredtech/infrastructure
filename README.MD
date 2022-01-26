@@ -23,6 +23,6 @@ perf('what'): A code change that improves performance
 test('what'): adding, removing, correcting tests
 
 revert('hash'): why was the revert needed
-BREAKING MERGE('what/feat/chore/etc'): what change does this merge do that breaks previous interations*
+BREAKING MERGE('what/feat/chore/etc'): what change does this merge do that breaks previous iterations*
 
 *This is not when code was commited and a process is broken because it was not tested, that is a revert to a previous working state. Breaking merge is a known reason why future iterations will not work the same way they did before, like an api change.
