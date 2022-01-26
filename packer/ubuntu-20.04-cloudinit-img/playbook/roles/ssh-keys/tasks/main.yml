@@ -1,0 +1,35 @@
+- name: Add public SSH key for the packer user
+  authorized_key:
+    user: packer
+    key: "{{ item }}"
+    state: present
+  loop: "{{ query('hashi_vault', 'secret=kv/data/ssh-pub-key', token=vault_token, url=vault_addr, return_format='values') }}"
+  register: add_identity_key
+  when: vault_token is defined and vault_addr is defined
+
+- name: Disable empty password login
+  become: yes
+  lineinfile:
+    path: "{{ sshd_config }}" 
+    regexp: '^#?PermitEmptyPasswords' 
+    line: 'PermitEmptyPasswords no'
+  notify: restart sshd
+
+- name: Disable remote root login
+  become: yes
+  lineinfile: 
+    path: "{{ sshd_config }}" 
+    regexp: '^#?PermitRootLogin' 
+    line: 'PermitRootLogin no'
+  notify: restart sshd
+
+- name: Disable password login
+  become: yes
+  lineinfile: 
+    path: "{{ sshd_config }}" 
+    regexp: '^(#\s*)?PasswordAuthentication '
+    line: 'PasswordAuthentication no'
+  when: 
+    - add_identity_key is succeeded 
+    - not add_identity_key is skipped
+  notify: restart sshd

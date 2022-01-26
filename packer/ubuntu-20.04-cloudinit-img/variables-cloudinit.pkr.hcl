@@ -30,7 +30,7 @@ variable "vault_token" {
 #other/optional variables
 variable "template_name" {
   type    = string
-  default = "tplate-ubuntu-20-04-legacy-LTS-{{ isotime \"2006-01-02-T15-04\" }}-UTC"
+  default = "tplate-ubuntu-2004-IMG-CINIT"
 }
 variable "template_description" {
   type    = string

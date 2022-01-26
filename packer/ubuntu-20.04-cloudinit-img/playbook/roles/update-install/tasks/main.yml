@@ -1,0 +1,22 @@
+- name: apt update machines
+  become: yes      
+  apt:
+    update_cache: yes
+    upgrade: dist
+    autoremove: true
+
+- name: install packages
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - linux-generic
+    - linux-headers-generic
+    - linux-image-generic
+    - qemu-guest-agent
+    - cloud-init
+    - iputils-ping
+    - curl
+    - wget
+    - nfs-common

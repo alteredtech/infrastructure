@@ -9,7 +9,7 @@ build {
   provisioner "ansible" {
     extra_arguments = [
       "-v",
-      "-e ansible_ssh_pass=${local.ssh_password} VAULT_ADDR='${var.vault_addr}' VAULT_TOKEN='${var.vault_token}'"]
+      "-e ansible_ssh_pass=${local.ssh_password} VAULT_ADDR='${var.vault_addr}' VAULT_TOKEN='${var.vault_token}' ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'"]
     ansible_env_vars = ["ANSIBLE_CONFIG=playbook/ansible.cfg"]
     playbook_file    = "./playbook/${var.ansible_play}.yml"
     use_proxy        = false
