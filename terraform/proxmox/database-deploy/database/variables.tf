@@ -24,11 +24,13 @@ variable "os_type_in" {
 variable "cores_in" {
   description = "how many cores does the vm get"
 }
-variable "sockets_in" {
-  description = "how many sockets for the vm"
-}
+
 variable "size_in" {
   description = "size of disk space for the vm"
+  validation {
+    condition     = var.size_in >= 64
+    error_message = "The size of the disk must be 64 or larger."
+  }
 }
 variable "storage_in" {
   description = "location where the disk will store its information"
@@ -39,8 +41,11 @@ variable "model_in" {
 variable "bridge_in" {
   description = "which internal bridge to use for networking"
 }
-variable "ipconfig0_in" {
-  description = "ip of vm and gateway"
+variable "ip_base_in" {
+  description = "base ip of vm"
+}
+variable "gw_in" {
+  description = "gateway for the vm"
 }
 variable "nameserver_in" {
   description = "the dns server for the VM to use"

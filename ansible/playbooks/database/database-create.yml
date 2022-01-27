@@ -1,7 +1,8 @@
 - name: create database docker containers
-  hosts: sandbox
+  hosts: database
 
   roles:
     - update-install
     - mount
     - docker-containers
+    #TODO add influxdb to docker since that is needed by the sensors/other

@@ -5,4 +5,4 @@ packer_out=$(packer build . | tee /dev/tty)
 template=$(echo "$packer_out" | tail -n 10 | grep -oP '(tplate-).*(CINIT)' )
 
 # create the 'prox.tf' file from the template:
-export TEMPLATE_GENERATED_BY_PACKER="$template" && envsubst < $HOME/Coding/infrastructure/terraform/proxmox/prox.tf.template > $HOME/Coding/infrastructure/terraform/proxmox/prox.tf
+export TEMPLATE_GENERATED_BY_PACKER="$template" && envsubst < $HOME/Coding/infrastructure/terraform/proxmox/database-deploy/prox.tf.template > $HOME/Coding/infrastructure/terraform/proxmox/database-deploy/prox.tf
