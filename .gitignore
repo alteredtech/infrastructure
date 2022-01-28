@@ -7,3 +7,4 @@ payload.json
 *.tfvars
 *.tfstate*
 .terraform*
+terraform-plugin-proxmox.log

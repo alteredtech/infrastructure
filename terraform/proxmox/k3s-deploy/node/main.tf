@@ -1,5 +1,5 @@
 # --- proxmox-root/k3s-deploy/node/main.tf
-resource "proxmox_vm_qemu" "k3s-nodes" {
+resource "proxmox_vm_qemu" "k3s_nodes" {
   depends_on  = [random_shuffle.target_node]
   count       = var.count_in
   name        = join("-", [var.node_name_in, (count.index + 1)])
@@ -40,3 +40,16 @@ resource "random_shuffle" "target_node" {
   input        = var.target_node_in
   result_count = 1
 }
+
+// # generate inventory file for Ansible
+// resource "local_file" "hosts_cfg" {
+//   content = templatefile("${path.root}/node/templates/hosts.tpl",
+//     {
+//       master_nodes = proxmox_vm_qemu.k3s_nodes[*]
+//       worker_nodes = proxmox_vm_qemu.k3s_nodes[*]
+//       // master_nodes = module.node["rick"].*.rick
+//       // worker_nodes = module.node["morty"].*.morty
+//     }
+//   )
+//   filename = "${path.root}/../../../ansible/inventory/k3s.yml"
+// }

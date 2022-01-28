@@ -12,7 +12,7 @@ variable "kubernetes" {
   default = {
     // rick is the master node
     rick = {
-      count          = 1
+      count          = 2
       target         = ["pve"]
       clone_template = "tplate-ubuntu-2004-ISO-CINIT"
       os_type        = "ubuntu"

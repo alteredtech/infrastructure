@@ -1,0 +1,16 @@
+all:
+  children:
+    master:
+      hosts:
+    %{for i in master_nodes ~}
+        ${i.node_output}:
+          ansible_host:${i.node_output}
+          ansible_ssh_user: packer
+    %{endfor ~}
+    workers:
+      hosts:
+    %{for i in worker_nodes ~}
+        ${i.node_output}:
+          ansible_host:${i.node_output}
+          ansible_ssh_user: packer
+    %{endfor ~}

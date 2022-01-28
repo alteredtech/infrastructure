@@ -20,3 +20,14 @@ module "node" {
   nameserver_in   = each.value.networking.nameserver
   searchdomain_in = each.value.networking.searchdomain
 }
+
+# generate inventory file for Ansible
+resource "local_file" "hosts_cfg" {
+  content = templatefile("${path.root}/node/templates/hosts.tpl",
+    {
+      master_nodes = module.node["rick"].node_output
+      worker_nodes = module.node["morty"].node_output
+    }
+  )
+  filename = "${path.root}/../../../ansible/inventory/k3s.yml"
+}
