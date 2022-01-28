@@ -1,1 +1,0 @@
-# --- proxmox-root/k3s/node/varaibles.tf

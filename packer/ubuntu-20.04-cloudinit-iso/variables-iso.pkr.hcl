@@ -43,7 +43,7 @@ variable "template_description" {
 
 variable "disk_size" {
   type    = string
-  default = "32G"
+  default = "6G"
 }
 
 variable "datastore" {
