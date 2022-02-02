@@ -11,25 +11,25 @@ variable "vault_token" {
 variable "database" {
   default = {
     database = {
-      count = 1
-      target = ["pve"]
+      count          = 1
+      target         = ["pve"]
       clone_template = "tplate-ubuntu-2004-ISO-CINIT"
-      os_type = "ubuntu"
+      os_type        = "ubuntu"
       hardware = {
         memory = 2048
         ballon = 512
-        cores = 2
+        cores  = 2
       }
       disk = {
-        size = 64
+        size    = 16
         storage = "local-main"
       }
       networking = {
-        model = "virtio"
-        bridge = "vmbr0"
-        ip_base = "10.0.2.2"
-        gw = "10.0.2.1"
-        nameserver = ["10.0.2.14"]
+        model        = "virtio"
+        bridge       = "vmbr0"
+        ip_base      = "10.0.2.2"
+        gw           = "10.0.2.1"
+        nameserver   = ["10.0.2.14"]
         searchdomain = "alteredtech.home"
       }
     }

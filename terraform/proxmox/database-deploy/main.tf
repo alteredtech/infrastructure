@@ -20,3 +20,13 @@ module "database" {
   nameserver_in   = each.value.networking.nameserver
   searchdomain_in = each.value.networking.searchdomain
 }
+
+# generate inventory file for Ansible
+resource "local_file" "hosts_cfg" {
+  content = templatefile("${path.root}/database/templates/hosts.tpl",
+    {
+      database_nodes = module.database["database"].database_output
+    }
+  )
+  filename = "${path.root}/../../../ansible/inventory/databases.yml"
+}

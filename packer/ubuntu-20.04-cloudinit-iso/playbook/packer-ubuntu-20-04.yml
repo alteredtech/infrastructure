@@ -10,11 +10,6 @@
         update_cache: yes
         upgrade: dist
         autoremove: true
-    
-    - name: copy auto_resize script
-      copy:
-        src: "{{ playbook_dir }}/../scripts/auto_resize_vda.sh"
-        dest: "/etc/"
 
     - name: install packages
       apt:

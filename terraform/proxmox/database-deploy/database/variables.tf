@@ -28,8 +28,8 @@ variable "cores_in" {
 variable "size_in" {
   description = "size of disk space for the vm"
   validation {
-    condition     = var.size_in >= 64
-    error_message = "The size of the disk must be 64 or larger."
+    condition     = var.size_in >= 6
+    error_message = "The size of the disk must be 6 or larger."
   }
 }
 variable "storage_in" {

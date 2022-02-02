@@ -1,8 +1,9 @@
 - name: create database docker containers
-  hosts: database
+  hosts: databases
 
   roles:
     - update-install
     - mount
-    - docker-containers
+    - influx-container
+    - postgres-container
     #TODO add influxdb to docker since that is needed by the sensors/other

@@ -9,18 +9,18 @@ source "proxmox" "ubuntu-2004" {
   template_description = "${var.template_description}"
 
   #vm hardware configurations
-  os           = "l26"
-  iso_file     = "${var.iso_location}/${var.iso}"
-  iso_checksum = "${var.iso_checksum}"
-  cloud_init = true
+  os                      = "l26"
+  iso_file                = "${var.iso_location}/${var.iso}"
+  iso_checksum            = "${var.iso_checksum}"
+  cloud_init              = true
   cloud_init_storage_pool = "${var.datastore}"
-  qemu_agent  = true
-  unmount_iso = true
-  ssh_username   = "${local.ssh_username}"
-  ssh_password   = "${local.ssh_password}"
-  ssh_timeout    = "90m"
-  http_directory = "./http"
-  boot_wait      = "5s"
+  qemu_agent              = true
+  unmount_iso             = true
+  ssh_username            = "${local.ssh_username}"
+  ssh_password            = "${local.ssh_password}"
+  ssh_timeout             = "90m"
+  http_directory          = "./http"
+  boot_wait               = "5s"
 
   disks {
     cache_mode        = "writeback"
@@ -36,8 +36,6 @@ source "proxmox" "ubuntu-2004" {
     model  = "virtio"
   }
 
-  
-  #TODO move user creation to preseed?
   boot_command = [
     "<esc><wait>",
     "<esc><wait>",

@@ -12,13 +12,13 @@ variable "kubernetes" {
   default = {
     // rick is the master node
     rick = {
-      count          = 2
+      count          = 1
       target         = ["pve"]
       clone_template = "tplate-ubuntu-2004-ISO-CINIT"
       os_type        = "ubuntu"
       hardware = {
         memory = 1024
-        ballon = 512
+        ballon = 1
         cores  = 1
       }
       disk = {
@@ -36,13 +36,13 @@ variable "kubernetes" {
     }
     // morty is the worker node
     morty = {
-      count          = 1
+      count          = 0
       target         = ["pve"]
       clone_template = "tplate-ubuntu-2004-ISO-CINIT"
       os_type        = "ubuntu"
       hardware = {
         memory = 4096
-        ballon = 512
+        ballon = 128
         cores  = 2
       }
       disk = {

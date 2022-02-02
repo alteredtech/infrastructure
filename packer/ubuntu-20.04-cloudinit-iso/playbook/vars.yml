@@ -1,4 +1,4 @@
-vault_token: "{{ VAULT_TOKEN }}"
-vault_addr: "{{ VAULT_ADDR }}"
+vault_token: "{{ lookup('env','VAULT_TOKEN') }}"
+vault_addr: "{{ lookup('env','VAULT_ADDR') }}"
 sshd_config: /etc/ssh/sshd_config
 sshd: ssh

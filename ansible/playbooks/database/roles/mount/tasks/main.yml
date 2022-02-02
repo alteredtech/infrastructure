@@ -1,13 +1,13 @@
 - name: create backup directory
   file:
-    path: ${HOME}/backups
+    path: ${HOME}/database
     state: directory
 
 - name: Mount backups for database
   become: yes
   ansible.posix.mount:
     src: "{{ mount_point }}"
-    path: backups
+    path: database
     opts: defaults,hard
     state: mounted
     fstype: nfs

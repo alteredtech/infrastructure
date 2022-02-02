@@ -1,0 +1,19 @@
+- name: make sure docker is started
+  become: yes
+  command: systemctl start docker
+
+- name: create influxdb
+  docker_container:
+    name: influxdb
+    image: bitnami/influxdb:2.1.1
+    state: started
+    recreate: yes
+    env:
+      INFLUXDB_HTTP_AUTH_ENABLED: 'false'
+      INFLUXDB_ADMIN_USER_PASSWORD: "{{ lookup('hashi_vault', 'secret=kv/data/influxdb:password', token=vault_token, url=vault_addr) }}"
+      INFLUXDB_ADMIN_USER_TOKEN: "{{ lookup('hashi_vault', 'secret=kv/data/influxdb:admin-token', token=vault_token, url=vault_addr) }}"
+    volumes:
+      - '/home/packer/database/influx-data:/bitnami/influxdb'
+    ports:
+      - "8088:8088"
+      - "8086:8086"
