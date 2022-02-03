@@ -6,4 +6,4 @@
   tasks:
     - name: debug
       debug:
-        msg: "this is to test inventory"
+        msg: "{{home_dir}}"
