@@ -4,6 +4,10 @@
     update_cache: yes
     upgrade: 'yes'
     autoclean: yes
+  register: res
+  retries: 100
+  delay: 10
+  until: res is not failed
 
 - name: install docker and nfs-common
   become: yes
@@ -36,3 +40,5 @@
       - docker
       - docker-compose
 
+- name: reset ssh connection for docker group to take affect
+  meta: reset_connection

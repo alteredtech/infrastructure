@@ -2,7 +2,20 @@
   become: yes
   command: systemctl start docker
 
+- name: Ensure docker is in a running state
+  service:
+    name: docker 
+    state: started
+  register: dockerDetails
+  until: dockerDetails.status.ActiveState == "active"
+  retries: 15
+  delay: 20
+
 - name: create pgadmin4
+  register: res
+  retries: 100
+  delay: 1
+  until: res is not failed
   docker_container:
     name: pgadmin4
     image: dpage/pgadmin4:6.4

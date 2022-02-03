@@ -2,12 +2,22 @@
   become: yes
   command: systemctl start docker
 
+- name: Ensure docker is in a running state
+  service:
+    name: docker 
+    state: started
+  register: dockerDetails
+  until: dockerDetails.status.ActiveState == "active"
+  retries: 15
+  delay: 20
+
 - name: create network
+  register: res
+  retries: 100
+  delay: 1
+  until: res is not failed
   docker_network:
     name: metrics
-    connected:
-      - chronograf
-      - influxdb
 
 - name: create chronograf
   docker_container:
