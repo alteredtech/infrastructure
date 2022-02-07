@@ -7,7 +7,6 @@ module "database" {
   target_node_in = each.value.target
   clone_in       = each.value.clone_template
   memory_in      = each.value.hardware.memory
-  ballon_in      = each.value.hardware.ballon
   os_type_in     = each.value.os_type
   cores_in       = each.value.hardware.cores
   #TODO add condition that it can not be lower than the value specified in the template creation, currently 64

@@ -19,13 +19,7 @@ variable "memory_in" {
   //   error_message = "The max memory must be less than 16382."
   // }
 }
-variable "ballon_in" {
-  description = "minimum memory for the VM"
-  // validation {
-  //   condition     = var.ballon_in < 512
-  //   error_message = "The minimum memory must be higher than 512."
-  // }
-}
+
 variable "os_type_in" {
   description = "What type of os, either ubuntu, centos, cloudinit"
 }

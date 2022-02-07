@@ -11,7 +11,7 @@ make it so you run one command and it will deploy on the different types of clou
 
 ## Standardization
 
-fix('what'): What bug was specifically fixed
+fix('what'): What bug was specifically fixed 
 feat('what'): What was the new feature
 docs('what'): Documentation changes
 refactor('what'): A code change that neither fixes a bug nor adds a feature

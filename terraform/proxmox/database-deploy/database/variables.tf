@@ -15,9 +15,6 @@ variable "clone_in" {
 variable "memory_in" {
   description = "maximum memory for the VM"
 }
-variable "ballon_in" {
-  description = "minimum memory for the VM"
-}
 variable "os_type_in" {
   description = "What type of os, either ubuntu, centos, cloudinit"
 }

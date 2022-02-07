@@ -16,9 +16,8 @@ variable "database" {
       clone_template = "tplate-ubuntu-2004-ISO-CINIT"
       os_type        = "ubuntu"
       hardware = {
-        memory = 2048
-        ballon = 512
-        cores  = 2
+        memory = 8192
+        cores  = 4
       }
       disk = {
         size    = 16

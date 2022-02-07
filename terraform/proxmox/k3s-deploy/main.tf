@@ -7,10 +7,9 @@ module "node" {
   target_node_in = each.value.target
   clone_in       = each.value.clone_template
   memory_in      = each.value.hardware.memory
-  ballon_in      = each.value.hardware.ballon
   os_type_in     = each.value.os_type
   cores_in       = each.value.hardware.cores
-  #TODO add condition that it can not be lower than the value specified in the template creation, currently 64
+  #TODO add condition that it can not be lower than the value specified in the template creation, currently 6
   size_in         = each.value.disk.size
   storage_in      = each.value.disk.storage
   model_in        = each.value.networking.model
@@ -29,5 +28,5 @@ resource "local_file" "hosts_cfg" {
       worker_nodes = module.node["morty"].node_output
     }
   )
-  filename = "${path.root}/../../../ansible/inventory/k3s.yml"
+  filename = "${path.root}/../../../ansible/inventory/k3s.ini"
 }

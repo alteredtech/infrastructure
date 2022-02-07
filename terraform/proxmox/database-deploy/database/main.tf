@@ -8,7 +8,6 @@ resource "proxmox_vm_qemu" "database" {
   clone       = var.clone_in
   full_clone  = true
   memory      = var.memory_in
-  balloon     = var.ballon_in
   os_type     = var.os_type_in
   cores       = var.cores_in
   scsihw      = "lsi"

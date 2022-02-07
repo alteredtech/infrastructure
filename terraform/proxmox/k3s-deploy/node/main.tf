@@ -9,7 +9,6 @@ resource "proxmox_vm_qemu" "k3s_nodes" {
   // clone       = "ubuntu-20-04-legacy-LTS-2022-01-22-T21-46-08-UTC"
   full_clone = true
   memory     = var.memory_in
-  balloon    = var.ballon_in
   os_type    = var.os_type_in
   cores      = var.cores_in
   scsihw     = "lsi"
