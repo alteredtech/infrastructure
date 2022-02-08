@@ -1,4 +1,3 @@
-
 ---
 ansible_user: root
 server_init_args: >-
