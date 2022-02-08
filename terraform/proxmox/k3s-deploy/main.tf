@@ -30,3 +30,13 @@ resource "local_file" "hosts_cfg" {
   )
   filename = "${path.root}/../../../ansible/inventory/k3s.ini"
 }
+
+# generate nginx conf file
+resource "local_file" "nginx_cfg" {
+  content = templatefile("${path.root}/node/templates/nginx.tpl",
+    {
+      master_nodes = module.node["rick"].node_output
+    }
+  )
+  filename = "${path.root}/../../../ansible/playbooks/loadbalancer/nginx.conf"
+}
