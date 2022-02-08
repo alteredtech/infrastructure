@@ -1,18 +1,8 @@
-- name: apt update ubuntu machines
-  become: yes
-  apt:
-    update_cache: yes
-    upgrade: 'yes'
-    autoclean: yes
-  register: res
-  retries: 100
-  delay: 10
-  until: res is not failed
 
 - name: install docker and nfs-common
   become: yes
   apt:
-    name: ['docker.io','nfs-common','python3']
+    name: ['docker.io','python3']
     state: present
 
 - name: create docker group

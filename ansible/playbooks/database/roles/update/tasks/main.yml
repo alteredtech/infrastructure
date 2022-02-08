@@ -1,0 +1,10 @@
+- name: apt update ubuntu machines
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: 'yes'
+    autoclean: yes
+  register: res
+  retries: 100
+  delay: 10
+  until: res is not failed

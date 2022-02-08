@@ -21,6 +21,7 @@
     image: dpage/pgadmin4:6.4
     state: started
     recreate: yes
+    restart-policy: always
     env:
       PGADMIN_DEFAULT_EMAIL: "{{ lookup('hashi_vault', 'secret=kv/data/postgres:pg-email', token=vault_token, url=vault_addr) }}"
       PGADMIN_DEFAULT_PASSWORD: "{{ lookup('hashi_vault', 'secret=kv/data/postgres:pg-password', token=vault_token, url=vault_addr) }}"
@@ -39,6 +40,7 @@
     image: postgres:14.1-alpine
     state: started
     recreate: yes
+    restart-policy: always
     env:
       POSTGRES_PASSWORD: "{{ lookup('hashi_vault', 'secret=kv/data/postgres:password', token=vault_token, url=vault_addr) }}"
       POSTGRES_USER: "{{ lookup('hashi_vault', 'secret=kv/data/postgres:username', token=vault_token, url=vault_addr) }}"

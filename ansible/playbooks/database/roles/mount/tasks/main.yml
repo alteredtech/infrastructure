@@ -1,3 +1,9 @@
+- name: install nfs-common
+  become: yes
+  apt:
+    name: nfs-common
+    state: present
+
 - name: create backup directory
   file:
     path: ${HOME}/database

@@ -2,8 +2,8 @@
   hosts: databases
 
   roles:
-    - update-install
-    - mount
-    - influx-container
-    - postgres-container
-    #TODO add influxdb to docker since that is needed by the sensors/other
+    - role: update
+    - role: install-docker
+    - role: mount
+    - role: influx-container
+    - role: postgres-container
