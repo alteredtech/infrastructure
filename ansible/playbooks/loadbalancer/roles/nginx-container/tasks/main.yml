@@ -1,0 +1,20 @@
+- name: create nginx configuration directory
+  file:
+    path: ${HOME}/nginx-conf
+    state: directory
+
+- name: copy nginx conf file
+  copy:
+    src: "{{playbook_dir}}/nginx.conf"
+    dest: ${HOME}/nginx-conf/nginx.conf
+
+- name: create nginx
+  docker_container:
+    name: k3s_loadbalancer
+    image: nginx:1.21.6-alpine
+    state: started
+    recreate: yes
+    volumes:
+      - '/home/packer/nginx-conf/nginx.conf:/etc/nginx/nginx.conf:ro'
+    ports:
+      - "6443:6443"

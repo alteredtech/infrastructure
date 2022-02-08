@@ -1,0 +1,6 @@
+- name: create loadbalancer
+  hosts: sandbox
+
+  roles:
+    - role: install-docker
+    - role: nginx-container
