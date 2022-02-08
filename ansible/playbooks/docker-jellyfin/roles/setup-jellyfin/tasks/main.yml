@@ -1,4 +1,4 @@
-- name: create {{project_root}}/docker/jellyfin directory
+- name: create directories for jellyfin
   file:
     path: "{{ item }}"
     state: directory
@@ -7,7 +7,7 @@
     - ${HOME}/docker/jellyfin
     - ${HOME}/media
 
-  - name: create jellyfin files
+- name: create jellyfin files
   copy:
     src: "{{ item }}"
     dest: ${HOME}/docker/jellyfin
