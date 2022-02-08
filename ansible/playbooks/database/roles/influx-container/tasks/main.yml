@@ -23,7 +23,7 @@
   docker_container:
     name: chronograf
     image: chronograf:1.8.10
-    restart-policy: always
+    restart_policy: always
     networks:
       - name: metrics
     purge_networks: yes
