@@ -21,7 +21,7 @@
     image: dpage/pgadmin4:6.4
     state: started
     recreate: yes
-    restart-policy: always
+    restart_policy: always
     env:
       PGADMIN_DEFAULT_EMAIL: "{{ lookup('hashi_vault', 'secret=kv/data/postgres:pg-email', token=vault_token, url=vault_addr) }}"
       PGADMIN_DEFAULT_PASSWORD: "{{ lookup('hashi_vault', 'secret=kv/data/postgres:pg-password', token=vault_token, url=vault_addr) }}"

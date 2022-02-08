@@ -1,5 +1,5 @@
 - name: create loadbalancer
-  hosts: sandbox
+  hosts: database-1
 
   roles:
     - role: install-docker

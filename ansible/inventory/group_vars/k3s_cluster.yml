@@ -1,0 +1,16 @@
+---
+k3s_version: v1.17.5+k3s1
+ansible_user: "{{ lookup('hashi_vault', 'secret=kv/data/k3s:username', token=vault_token, url=vault_addr) }}"
+systemd_dir: /etc/systemd/system
+
+# If you define multiple masters you should be providing a loadbalanced
+# apiserver endpoint to all masters here. This default value is only suitable
+# for a non-HA setup, if used in a HA setup, it will not protect you if the
+# first node fails.
+# Also you should define k3s_token so that masters can talk together securely
+
+apiserver_endpoint: "{{ hostvars[groups['loadbalancer'][0]]['ansible_host'] | default(groups['loadbalancer'][0]) }}"
+k3s_token: "{{ lookup('hashi_vault', 'secret=kv/data/k3s:secret', token=vault_token, url=vault_addr) }}"
+
+extra_server_args: "--tls-san {{ hostvars[groups['loadbalancer'][0]]['ansible_host'] | default(groups['loadbalancer'][0]) }}"
+extra_agent_args: ""

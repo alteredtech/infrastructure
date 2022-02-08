@@ -40,7 +40,7 @@
     image: influxdb:1.8.10
     state: started
     recreate: yes
-    restart-policy: always
+    restart_policy: always
     env:
       INFLUXDB_ADMIN_PASSWORD: "{{ lookup('hashi_vault', 'secret=kv/data/influxdb:password', token=vault_token, url=vault_addr) }}"
       INFLUXDB_ADMIN_USER: "{{ lookup('hashi_vault', 'secret=kv/data/influxdb:username', token=vault_token, url=vault_addr) }}"
