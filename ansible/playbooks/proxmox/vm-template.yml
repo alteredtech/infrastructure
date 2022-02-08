@@ -1,7 +1,5 @@
 - name: create base vm template
   hosts: proxmox
-  vars_files:
-    - ./vars.yml
 
   tasks:
     - name: create cloudinit-template
