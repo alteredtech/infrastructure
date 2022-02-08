@@ -1,0 +1,7 @@
+- name: install docker
+  hosts: sandbox
+
+  roles:
+    - role: install-docker
+    - role: container-blog
+    - role: container-resume

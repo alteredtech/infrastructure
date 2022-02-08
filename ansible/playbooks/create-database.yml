@@ -1,0 +1,9 @@
+- name: create database docker containers
+  hosts: databases
+
+  roles:
+    - { role: update-machine }
+    - { role: install-docker }
+    - { role: mount-database }
+    - { role: container-influx }
+    - { role: container-postgres }

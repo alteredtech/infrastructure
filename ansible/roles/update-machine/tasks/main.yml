@@ -1,0 +1,27 @@
+- name: apt update ubuntu machines
+  become: yes
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == "Debian"
+  tags:
+    - debian
+    - ubuntu
+  apt:
+    update_cache: yes
+    upgrade: 'yes'
+    autoclean: yes
+    autoremove: yes
+  register: res
+  retries: 100
+  delay: 10
+  until: res is not failed
+
+- name: yum update centos machines
+  when: ansible_distribution == 'CentOS'
+  tags:
+    - centos
+  yum:
+    update_cache: yes
+    autoremove: yes
+  register: res
+  retries: 100
+  delay: 10
+  until: res is not failed

@@ -3,4 +3,4 @@
 
   roles:
     - role: install-docker
-    - role: nginx-container
+    - role: container-nginx
