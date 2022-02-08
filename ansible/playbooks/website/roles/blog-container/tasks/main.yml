@@ -1,0 +1,9 @@
+- name: create blog website
+  docker_container:
+    name: blog
+    image: alteredtech/nginx-alteredtech
+    state: started
+    recreate: yes
+    restart_policy: always
+    ports:
+      - "9001:80"

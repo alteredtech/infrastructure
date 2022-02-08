@@ -1,0 +1,9 @@
+- name: create resume website
+  docker_container:
+    name: resume
+    image: alteredtech/nginx-alteredtech-resume
+    state: started
+    recreate: yes
+    restart_policy: always
+    ports:
+      - "9002:80"

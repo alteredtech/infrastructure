@@ -1,0 +1,17 @@
+- name: install docker
+  hosts: master
+
+  roles:
+    - role: install-docker
+
+- name: install blog website
+  hosts: rick-1
+
+  roles:
+    - role: blog-container
+
+- name: install resume website
+  hosts: rick-2
+  
+  roles:
+    - role: resume-container
