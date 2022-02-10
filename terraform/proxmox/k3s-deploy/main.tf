@@ -38,5 +38,14 @@ resource "local_file" "nginx_cfg" {
       master_nodes = module.node["rick"].node_output
     }
   )
-  filename = "${path.root}/../../../ansible/playbooks/loadbalancer/nginx.conf"
+  filename = "${path.root}/../../../ansible/playbooks/nginx-k3s.conf"
+}
+# generate nginx conf file
+resource "local_file" "nginx_ex_cfg" {
+  content = templatefile("${path.root}/node/templates/nginx-ex.tpl",
+    {
+      worker_nodes = module.node["morty"].node_output
+    }
+  )
+  filename = "${path.root}/../../../ansible/playbooks/nginx-external.conf"
 }
