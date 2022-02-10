@@ -1,5 +1,5 @@
 ---
-k3s_version: v1.17.5+k3s1
+k3s_version: v1.19.5+k3s1
 ansible_user: "{{ lookup('hashi_vault', 'secret=kv/data/k3s:username', token=vault_token, url=vault_addr) }}"
 systemd_dir: /etc/systemd/system
 

@@ -5,8 +5,8 @@
 
 - name: copy nginx conf file
   copy:
-    src: "{{playbook_dir}}/nginx.conf"
-    dest: ${HOME}/nginx-conf/nginx.conf
+    src: "{{playbook_dir}}/nginx-k3s.conf"
+    dest: ${HOME}/nginx-conf/nginx-k3s.conf
 
 - name: create nginx
   docker_container:
@@ -14,7 +14,31 @@
     image: nginx:1.21.6-alpine
     state: started
     recreate: yes
+    restart_policy: always
     volumes:
-      - '/home/packer/nginx-conf/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - "/home/packer/nginx-conf/nginx-k3s.conf:/etc/nginx/nginx.conf:ro"
     ports:
       - "6443:6443"
+
+- name: create nginx configuration directory
+  file:
+    path: ${HOME}/nginx-conf
+    state: directory
+
+- name: copy nginx conf file
+  copy:
+    src: "{{playbook_dir}}/nginx-external.conf"
+    dest: "${HOME}/nginx-conf/nginx-ex.conf"
+
+- name: create nginx
+  docker_container:
+    name: external_loadbalancer
+    image: nginx:1.21.6-alpine
+    state: started
+    recreate: yes
+    restart_policy: always
+    volumes:
+      - '/home/packer/nginx-conf/nginx-ex.conf:/etc/nginx/nginx.conf:ro'
+    ports:
+      - "443:443"
+      - "80:80"
