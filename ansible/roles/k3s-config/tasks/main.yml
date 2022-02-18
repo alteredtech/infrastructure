@@ -1,0 +1,6 @@
+- name: fetch kubernetes config file to local machine
+  run_once: true
+  fetch:
+    src: "{{ansible_env.HOME}}/.kube/config"
+    dest: "/home/alteredtech/.kube/config"
+    flat: yes

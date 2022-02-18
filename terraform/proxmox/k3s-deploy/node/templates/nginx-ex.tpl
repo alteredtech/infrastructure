@@ -1,19 +1,31 @@
-events {}
+worker_processes 4;
+worker_rlimit_nofile 40000;
+
+events {
+    worker_connections 8192;
+}
 
 stream {
-  upstream external_services {
-    %{for key, value in worker_nodes ~}
-    server ${value}:443;
-    %{endfor ~}
-    
-    %{for key, value in worker_nodes ~}
-    server ${value}:80;
-    %{endfor ~}
-  }
+    upstream rancher_servers_http {
+        least_conn;
+        %{for key, value in worker_nodes ~}
+        server ${value}:80 max_fails=3 fail_timeout=5s;
+        %{endfor ~}
+    }
+    server {
+        listen 80;
+        proxy_pass rancher_servers_http;
+    }
 
-  server {
-    listen 443;
-    listen 80;
-    proxy_pass external_services;
-  }
+    upstream rancher_servers_https {
+        least_conn;
+        %{for key, value in worker_nodes ~}
+        server ${value}:443 max_fails=3 fail_timeout=5s;
+        %{endfor ~}
+    }
+    server {
+        listen     443;
+        proxy_pass rancher_servers_https;
+    }
+
 }

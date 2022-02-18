@@ -5,6 +5,8 @@ ansible-galaxy community.docker
 pip hvac
 env vault_addr
 env vault_token
+kubectl
+helm
 
 [ON REMOTE HOST]
 pip docker

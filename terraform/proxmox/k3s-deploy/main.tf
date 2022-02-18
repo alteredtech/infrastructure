@@ -49,3 +49,5 @@ resource "local_file" "nginx_ex_cfg" {
   )
   filename = "${path.root}/../../../ansible/playbooks/nginx-external.conf"
 }
+
+#TODO add ansible to automatically create cluster and loadbalancer
