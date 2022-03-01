@@ -4,9 +4,8 @@ source "proxmox" "ubuntu-2004" {
   insecure_skip_tls_verify = true
   username                 = "${local.proxmox_api_user}!${local.proxmox_api_token_name}"
   token                    = "${local.proxmox_api_token}"
-  // vm_id                    = "${var.vmid}"
-  vm_name              = "${var.template_name}"
-  template_description = "${var.template_description}"
+  vm_name                  = "${var.template_name}"
+  template_description     = "${var.template_description}"
 
   #vm hardware configurations
   os                      = "l26"

@@ -6,11 +6,9 @@
   with_items:
     - bash
     - curl
-    - findmnt
     - grep
-    - awk
-    - blkid
-    - lsblk
+    - mawk
+    - util-linux
     - open-iscsi
 
 - name: make sure iscsid is started
