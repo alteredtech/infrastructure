@@ -1,4 +1,4 @@
-- name: make sure longhorn dependences are installed
+- name: check longhorn dependences
   become: yes
   apt:
     name: "{{ item }}"
@@ -11,6 +11,6 @@
     - util-linux
     - open-iscsi
 
-- name: make sure iscsid is started
+- name: start iscsid
   become: yes
   command: systemctl start iscsid

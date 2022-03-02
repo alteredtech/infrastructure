@@ -1,9 +1,13 @@
 
-- name: install docker
+- name: install docker and python 3
   become: yes
   apt:
     name: ['docker.io','python3']
     state: present
+  register: res
+  retries: 100
+  delay: 10
+  until: res is not failed
 
 - name: create docker group
   become: yes

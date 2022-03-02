@@ -4,9 +4,9 @@
   gather_facts: yes
   become: yes
   roles:
-    - { role: k3s-prereq }
-    - { role: k3s-download }
-    - { role: k3s-raspberrypi }
+    - { role: k3s/prereq }
+    - { role: k3s/download }
+    - { role: k3s/raspberrypi }
 
 - hosts: master
   become: yes
@@ -22,4 +22,4 @@
   tags:
     - config
   roles:
-    - { role: k3s-config }
+    - { role: k3s/config }
