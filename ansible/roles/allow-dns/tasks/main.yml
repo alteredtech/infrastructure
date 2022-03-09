@@ -1,0 +1,5 @@
+- name: Allow all access to port 53
+  become: yes
+  community.general.ufw:
+    rule: allow
+    port: '53'

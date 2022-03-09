@@ -2,4 +2,4 @@
   hosts: node
 
   roles:
-    - {role: longhorn}
+    - {role: allow-dns}

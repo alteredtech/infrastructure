@@ -11,6 +11,8 @@ nfs:
   server: lilnas.alteredtech.home
   path: /mnt/alt-tech-main/kube
   mountOptions:
+    - hard
+    - vers=4
   volumeName: nfs-subdir-external-provisioner-root
   # Reclaim policy for the main nfs volume
   reclaimPolicy: Retain
