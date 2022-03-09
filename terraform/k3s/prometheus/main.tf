@@ -7,7 +7,7 @@ resource "helm_release" "prometheus-monitoring" {
   version          = "33.2.0"
 
   values = [
-    "${file("values-test.yml")}"
+    "${file("values-prometheus.yml")}"
   ]
   set {
     name  = "alertmanager.config.global.slack_api_url"
