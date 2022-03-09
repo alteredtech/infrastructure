@@ -8,3 +8,4 @@ payload.json
 *.tfstate*
 .terraform*
 terraform-plugin-proxmox.log
+.DS_Store
