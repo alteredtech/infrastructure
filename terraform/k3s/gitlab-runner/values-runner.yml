@@ -71,6 +71,18 @@ service:
   enabled: true
   type: ClusterIP
 
+rbac:
+  create: true
+  rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list", "get", "watch", "create", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
 ## Configuration for the Pods that the runner launches for each new job
 ##
 runners:
