@@ -1,12 +1,16 @@
-resource "helm_release" "prometheus-monitoring" {
-  name             = "prom-monitor"
+resource "helm_release" "gitlab_runner" {
+  name             = "gitlab-runner"
   create_namespace = true
-  namespace        = "monitor-prom"
-  repository       = "https://prometheus-community.github.io/helm-charts"
-  chart            = "kube-prometheus-stack"
-  version          = "33.2.0"
+  namespace        = "runner"
+  repository       = "https://charts.gitlab.io"
+  chart            = "gitlab-runner"
+  version          = "0.38.1"
 
   values = [
-    "${file("values-test.yml")}"
+    "${file("values-runner.yml")}"
   ]
+  set {
+    name  = "runnerRegistrationToken"
+    value = local.runner_token
+  }
 }
