@@ -1,0 +1,10 @@
+dependencies:
+- name: "loki"
+  condition: loki.enabled
+  repository: "https://grafana.github.io/helm-charts"
+  version: "^2.3.0"
+- name: "promtail"
+  condition: promtail.enabled
+  repository: "https://grafana.github.io/helm-charts"
+  version: "^3.11.0"
+
