@@ -76,28 +76,23 @@ rbac:
   serviceAccountName: gitlab-runner-gitlab-runner
   rules:
   - apiGroups: [""]
-    resources: ["*"]
-    verbs: ["*"]
-  # - apiGroups: [""]
-  #   resources: ["pods","secrets"]
-  #   verbs: ["list", "get", "watch", "create", "delete", "patch"]
-  # - apiGroups: [""]
-  #   resources: ["pods/exec"]
-  #   verbs: ["create"]
-  # - apiGroups: [""]
-  #   resources: ["pods/log"]
-  #   verbs: ["get"]
-  # - apiGroups: [""]
-  #   resources: ["secrets"]
-  #   verbs: ["*"]
-  # - apiGroups: [""]
-  #   resources: ["configmaps"]
-  #   verbs: ["create","delete"]
-
+    resources: ["pods"]
+    verbs: ["list", "get", "watch", "create", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["pods/attach","secrets","configmaps"]
+    verbs: ["list", "get", "create", "delete", "update"]
   clusterWideAccess: true
+
 ## Configuration for the Pods that the runner launches for each new job
 ##
 runners:
+  privileged: true
   # runner configuration, where the multi line strings is evaluated as
   # template so you can specify helm values inside of it.
   #
