@@ -19,7 +19,7 @@ alertmanager:
   enabled: true
 
   ingress:
-    enabled: true
+    enabled: false
 
     ## Hosts must be provided if Ingress is enabled.
     ##
@@ -137,7 +137,13 @@ grafana:
   #   type: prometheus
   #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
   #   version: 1
-
+  - name: loki
+    type: loki
+    access: proxy
+    orgId: 1
+    url: http://loki.loki.svc:3100
+    version: 1
+    editable: false
 ## Deploy a Prometheus instance
 ##
 prometheus:

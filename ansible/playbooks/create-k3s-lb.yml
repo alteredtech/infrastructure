@@ -2,5 +2,5 @@
   hosts: database-1
 
   roles:
-    - role: install-docker
-    - role: container-nginx
+    - {role: install-docker}
+    - {role: container-nginx}

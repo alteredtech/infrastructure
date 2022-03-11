@@ -1,2 +1,0 @@
-nginx-k3s-file: nginx-k3s.conf
-nginx-ex-serv-file: nginx-external.conf

@@ -1,16 +1,30 @@
-- name: create nginx configuration directory
-  file:
-    path: ${HOME}/nginx-conf
-    state: directory
+# - name: create nginx configuration directory
+#   tags:
+#   - nginx
+#   - web
+#   - k3s
+#   - syslog
+#   file:
+#     path: ${HOME}/nginx-conf
+#     state: directory
 
-- name: copy nginx conf file
+- name: "copy nginx conf files"
+  tags:
+  - nginx
+  - web
+  - k3s
+  - syslog
   copy:
-    src: "{{playbook_dir}}/nginx-k3s.conf"
-    dest: ${HOME}/nginx-conf/nginx-k3s.conf
+    src: "{{playbook_dir}}/nginx-conf/"
+    dest: ${HOME}/nginx-conf/
 
-- name: create nginx
+- name: "create k3s nginx"
+  tags:
+  - nginx
+  - k3s
   docker_container:
     name: k3s_loadbalancer
+    # image: "{{ nginx-ver }}"
     image: nginx:1.21.6-alpine
     state: started
     recreate: yes
@@ -20,19 +34,13 @@
     ports:
       - "6443:6443"
 
-- name: create nginx configuration directory
-  file:
-    path: ${HOME}/nginx-conf
-    state: directory
-
-- name: copy nginx conf file
-  copy:
-    src: "{{playbook_dir}}/nginx-external.conf"
-    dest: "${HOME}/nginx-conf/nginx-ex.conf"
-
-- name: create nginx
+- name: "create web nginx"
+  tags:
+  - nginx
+  - web
   docker_container:
     name: external_loadbalancer
+    # image: "{{ nginx-ver }}"
     image: nginx:1.21.6-alpine
     state: started
     recreate: yes
@@ -42,3 +50,21 @@
     ports:
       - "443:443"
       - "80:80"
+
+- name: "create syslog nginx"
+  tags:
+  - nginx
+  - syslog
+  docker_container:
+    name: syslog_loadbalancer
+    # image: "{{ nginx-ver }}"
+    image: nginx:1.21.6-alpine
+    state: started
+    recreate: yes
+    restart_policy: always
+    volumes:
+      - '/home/packer/nginx-conf/nginx-syslog.conf:/etc/nginx/nginx.conf:ro'
+    ports:
+      - "1514:1514"
+      - "514:514"
+      - "604:604"
