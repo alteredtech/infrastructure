@@ -9,3 +9,4 @@ payload.json
 .terraform*
 terraform-plugin-proxmox.log
 .DS_Store
+**/gitlab-runner-fork

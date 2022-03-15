@@ -35,6 +35,8 @@
       INFLUXDB_PASSWORD: "{{ lookup('hashi_vault', 'secret=kv/data/influxdb:password', token=vault_token, url=vault_addr) }}" 
 
 - name: create influxdb
+  tags:
+  - influxdb
   docker_container:
     name: influxdb
     image: influxdb:1.8.10
@@ -51,6 +53,7 @@
       - '/home/packer/database/influxdb/config:/etc/influxdb'
     ports:
       - "8086:8086"
+      - "8089:8089/udp"
     networks:
       - name: metrics
     purge_networks: yes

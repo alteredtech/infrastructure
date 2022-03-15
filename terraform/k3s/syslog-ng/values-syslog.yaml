@@ -19,7 +19,7 @@ config: |
   };
 
   destination d_remote {
-    tcp("loki-promtail-syslog.loki.svc" port(1514));
+    syslog("10.0.2.20" transport("tcp") port(1514) localport(514));
   };
 
   log {
@@ -70,7 +70,7 @@ securityContext: {}
 
 # syslog-ng have fixed ports tcp 601  and udp 514
 service:
-  type: ClusterIP
+  type: LoadBalancer
   # use externalip for a pre routede exter al ip.
   # TO-DO: LoadBalancer
   # type: externalip
