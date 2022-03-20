@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json": "file:///Users/michael/Coding/infrastructure/ansible/roles/container-nginx/tasks/main.yml"
-    }
-}
