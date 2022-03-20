@@ -1,13 +1,25 @@
-# Alteredtech homelab/infra
+# Alteredtech homelab/infrastructure
 
-Automating the creation of my homelab infrastructure. Using proxmox as my base for all my vms. Using packer and ansible to create vm templates. Then creating vms based on those templates with terraform. Ansible will provision the vms with their intended purpose.
+Automating the creation of my homelab infrastructure. 
+Technologies used to create infrastructure:
+* Packer - Create Machine images
+* Ansible - Provision Machine images and Virtual Machines
+* Terraform - Create Virtual Machines
+* Proxmox - Host the Virtual Machines
+* Kubernetes - Orchestrate Services
+* Docker - Images for Servers
+* Helm - Package Manager for Kubernetes
+
+Services used for monitoring and logging:
+* Grafana - Display collected data
+* Prometheus - Collect metrics from different endpoints
+* Alert Manager - Send alerts based on set levels
+* Loki - Log aggregation system 
+* Promtail - Log collection endpoint for Loki and Syslog
 
 ## Future plans
 make it so you run one command and it will deploy on the different types of clouds you provide. Set up bare metal machines to proxmox cluster running your vms.
 
-## File Flow
-/ubuntu-20.04/variables.pkr.hcl -> ubuntu-20.04.pkr.hcl -> vars.yml+packer-ubuntu-20-04.yml+ansible.cfg+preseed.cfg+setup.sh = ubuntu-template
-/terraform/proxmox/variables.tf+providers.tf+locals.tf+data.tf->main.tf+ubuntu-template->outputs.tf = proxmox vms
 
 ## Standardization
 
