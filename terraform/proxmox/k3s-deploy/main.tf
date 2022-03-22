@@ -38,7 +38,7 @@ resource "local_file" "nginx_cfg" {
       master_nodes = module.node["rick"].node_output
     }
   )
-  filename = "${path.root}/../../../ansible/playbooks/nginx-k3s.conf"
+  filename = "${path.root}/../../../ansible/playbooks/nginx-conf/nginx-k3s.conf"
 }
 # generate nginx conf file
 resource "local_file" "nginx_ex_cfg" {
@@ -47,7 +47,7 @@ resource "local_file" "nginx_ex_cfg" {
       worker_nodes = module.node["morty"].node_output
     }
   )
-  filename = "${path.root}/../../../ansible/playbooks/nginx-external.conf"
+  filename = "${path.root}/../../../ansible/playbooks/nginx-conf/nginx-external.conf"
 }
 
 #TODO add ansible to automatically create cluster and loadbalancer

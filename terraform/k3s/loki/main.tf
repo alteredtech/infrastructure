@@ -4,7 +4,7 @@ resource "helm_release" "loki_logs" {
   namespace        = "loki"
   // repository       = "https://grafana.github.io/helm-charts"
   // chart            = "loki-stack"
-  chart = "../../k3s/loki-stack"
+  chart = "./loki-stack"
   // version          = "2.6.1"
 
   values = [

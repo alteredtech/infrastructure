@@ -3,4 +3,4 @@
 
   roles:
     # - {role: update-machine}
-    - {role: k3s/dns}
+    - {role: allow-dns}
