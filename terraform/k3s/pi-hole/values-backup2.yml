@@ -28,7 +28,7 @@ dualStack:
 
 dnsHostPort:
   # -- set this to true to enable dnsHostPort
-  enabled: true
+  enabled: false
   # -- default port for this pod
   port: 53
 
@@ -64,7 +64,7 @@ serviceDns:
 serviceDhcp:
 
   # -- Generate a Service resource for DHCP traffic
-  enabled: false
+  enabled: true
 
   # -- `spec.type` for the DHCP Service
   type: NodePort
@@ -122,7 +122,7 @@ virtualHost: pi.hole
 # -- Configuration for the Ingress
 ingress:
   # -- Generate a Ingress resource
-  enabled: true
+  enabled: false
 
   # -- Specify an ingressClassName
   # ingressClassName: nginx
@@ -134,7 +134,7 @@ ingress:
   path: /
   hosts:
     # virtualHost (default value is pi.hole) will be appended to the hosts
-    - pihole.alteredtech.home
+    - chart-example.local
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -225,8 +225,8 @@ admin:
   passwordKey: "password"
 
 # -- extraEnvironmentVars is a list of extra enviroment variables to set for pihole to use
-extraEnvVars:
-  TZ: UTC
+extraEnvVars: {}
+  # TZ: UTC
 
 # -- extraEnvVarsSecret is a list of secrets to load in as environment variables.
 extraEnvVarsSecret: {}
@@ -235,9 +235,9 @@ extraEnvVarsSecret: {}
   #   key: secret-key
 
 # -- default upstream DNS 1 server to use
-DNS1: "10.0.2.1"
+DNS1: "8.8.8.8"
 # -- default upstream DNS 2 server to use
-DNS2: "10.0.2.14"
+DNS2: "8.8.4.4"
 
 antiaff:
   # -- set to true to enable antiaffinity (example: 2 pihole DNS in the same cluster)
@@ -345,7 +345,7 @@ webHttp: "80"
 webHttps: "443"
 
 # -- hostname of pod
-hostname: "pihole"
+hostname: ""
 
 # -- should the container use host network
 hostNetwork: "false"
@@ -405,5 +405,5 @@ podDnsConfig:
   policy: "None"
   nameservers:
   - 127.0.0.1
-  - 10.0.2.1
+  - 8.8.8.8
 

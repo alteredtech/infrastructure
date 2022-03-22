@@ -16,14 +16,11 @@
   blockinfile:
     path: /etc/resolvconf/resolv.conf.d/head
     block: |
-      nameserver 10.0.2.20
       nameserver 10.0.2.1
 
-- name: restart resolvconf
+- name: update resolveconf
   become: yes
-  service:
-    name: resolvconf
-    state: restarted
+  command: resolvconf -u
 
 - name: stop and disable systemd
   become: yes

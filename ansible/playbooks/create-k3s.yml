@@ -17,7 +17,7 @@
   become: yes
   roles:
     - { role: k3s/node }
-    - { role: k3s/dns }
+    # - { role: k3s/dns }
 
 - hosts: "{{ groups['master'][0] | default(groups['master'][0]) }}"
   tags:
