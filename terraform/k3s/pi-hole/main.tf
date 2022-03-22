@@ -7,7 +7,7 @@ resource "helm_release" "pi_hole" {
   version          = "2.5.8"
 
   values = [
-    "${file("values-test.yml")}"
+    "${file("values-backup.yml")}"
   ]
   set {
     name  = "adminPassword"

@@ -2,4 +2,4 @@
   hosts: node
 
   roles:
-    - {role: allow-dns}
+    - {role: k3s/dns}

@@ -1,0 +1,2 @@
+# TODO auto populate with terraform template file
+loadbalancer_ip: 10.0.2.20

@@ -8,16 +8,16 @@ serviceDhcp:
   # -- Generate a Service resource for DHCP traffic
   enabled: false
 
-# persistentVolumeClaim:
-#   # -- set to true to use pvc
-#   enabled: true
-#   size: "500Mi"
-  # storageClass: "nfs-client"
+persistentVolumeClaim:
+  # -- set to true to use pvc
+  enabled: true
+  size: "500Mi"
+  storageClass: "nfs-client"
 
 # -- default upstream DNS 1 server to use
 DNS1: "10.0.2.1"
 # -- default upstream DNS 2 server to use
-DNS2: "10.0.2.14"
+# DNS2: "10.0.2.14"
 
 adlists:
   # If you want to provide blocklists, add them here.

@@ -46,10 +46,12 @@
     recreate: yes
     restart_policy: always
     volumes:
-      - '/home/packer/nginx-conf/nginx-ex.conf:/etc/nginx/nginx.conf:ro'
+      - '/home/packer/nginx-conf/nginx-external.conf:/etc/nginx/nginx.conf:ro'
     ports:
       - "443:443"
       - "80:80"
+      - "53:53/tcp"
+      - "53:53/udp"
 
 - name: "create syslog nginx"
   tags:

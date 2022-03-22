@@ -1,5 +1,33 @@
-- name: Allow all access to port 53
+- name: install resolveconf
   become: yes
-  community.general.ufw:
-    rule: allow
-    port: '53'
+  apt:
+    name: resolvconf
+    state: present
+
+- name: start and enable resolvconf
+  become: yes
+  service:
+    name: resolvconf
+    state: started
+    enabled: yes
+
+- name: add self/router for upstream dns (this forwards to the kubernetes cluster)
+  become: yes
+  blockinfile:
+    path: /etc/resolvconf/resolv.conf.d/head
+    block: |
+      nameserver 10.0.2.20
+      nameserver 10.0.2.1
+
+- name: restart resolvconf
+  become: yes
+  service:
+    name: resolvconf
+    state: restarted
+
+- name: stop and disable systemd
+  become: yes
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
