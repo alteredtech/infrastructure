@@ -1,13 +1,14 @@
 resource "helm_release" "loki_logs" {
-  name             = "loki"
+  name             = var.release_name
   create_namespace = true
-  namespace        = "loki"
-  // repository       = "https://grafana.github.io/helm-charts"
-  // chart            = "loki-stack"
-  chart = "./loki-stack"
-  // version          = "2.6.1"
+  namespace        = var.release_name
+  chart            = "./loki-stack"
 
   values = [
     "${file("values-loki.yml")}"
   ]
+  set {
+    name = "config.lokiAddress"
+    value = "http://${var.release_name}:3100/loki/api/v1/push"
+  }
 }

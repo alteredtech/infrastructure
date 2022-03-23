@@ -17,30 +17,9 @@ promtail:
     enabled: true
     labels:
       release: prom-monitor
-  # config:
-  #   snippets:
-  # extraScrapeConfigs: 
-  #   - job_name: syslog
-  #     syslog:
-  #       listen_address: 0.0.0.0:1514
-  #       labels:
-  #         job: "syslog"
-  #     relabel_configs:
-  #       - source_labels: ["__syslog_connection_ip_address"]
-  #         target_label: "ip_address"
-  #       - source_labels: ["__syslog_message_severity"]
-  #         target_label: "severity"
-  #       - source_labels: ["__syslog_message_facility"]
-  #         target_label: "facility"
-  #       - source_labels: ["__syslog_message_hostname"]
-  #         target_label: "host"
-  
-  # syslogService:
-  #   enabled: true
-  #   type: LoadBalancer
-  #   port: 1514
 
   config:
+    lokiAddress: http://{{.Release.Name}}:3100/loki/api/v1/push
     snippets:
       extraScrapeConfigs: |
         - job_name: syslog
