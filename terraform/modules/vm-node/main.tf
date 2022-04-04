@@ -1,8 +1,8 @@
-# --- proxmox-root/database/main.tf
-resource "proxmox_vm_qemu" "database" {
+# --- terraform/modules/vm-node/main.tf
+resource "proxmox_vm_qemu" "vm_nodes" {
   depends_on  = [random_shuffle.target_node]
   count       = var.count_in
-  name        = join("-", [var.db_name_in, (count.index + 1)])
+  name        = join("-", [var.vm_node_name_in, (count.index + 1)])
   agent       = 1
   target_node = one(random_shuffle.target_node.result)
   clone       = var.clone_in

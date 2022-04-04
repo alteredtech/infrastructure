@@ -1,9 +1,9 @@
-# --- proxmox-root/database/variables.tf
+# --- terraform/modules/vm-node/varaibles.tf
 variable "count_in" {
-  description = "how many database servers to create"
+  description = "how many node servers to create"
 }
-variable "db_name_in" {
-  description = "name of the database server"
+variable "vm_node_name_in" {
+  description = "name of the node server"
 }
 variable "target_node_in" {
   description = "target proxmox node to deploy vm"
@@ -14,7 +14,12 @@ variable "clone_in" {
 }
 variable "memory_in" {
   description = "maximum memory for the VM"
+  // validation {
+  //   condition     = var.memory_in > 16384
+  //   error_message = "The max memory must be less than 16382."
+  // }
 }
+
 variable "os_type_in" {
   description = "What type of os, either ubuntu, centos, cloudinit"
 }
@@ -40,6 +45,11 @@ variable "bridge_in" {
 }
 variable "ip_base_in" {
   description = "base ip of vm"
+  // validation {
+  //     condition = var.node_name_in == "rick" && var.count_in > 10
+  //   //   TODO check to see if the terraform state lists what the ip address is of the vm after creation.
+  //     error_message = "The ip range for the master nodes conflicks with the base ip of the worker nodes. Please decrease the amount of master nodes or change the ip base for the worker nodes."
+  // }
 }
 variable "gw_in" {
   description = "gateway for the vm"

@@ -1,14 +1,14 @@
 # --- proxmox-root/k3s-deploy/main.tf
-module "node" {
-  source         = "./node"
-  for_each       = var.kubernetes
-  count_in       = each.value.count
-  node_name_in   = each.key
-  target_node_in = each.value.target
-  clone_in       = each.value.clone_template
-  memory_in      = each.value.hardware.memory
-  os_type_in     = each.value.os_type
-  cores_in       = each.value.hardware.cores
+module "vm_node" {
+  source          = "../../modules/vm-node"
+  for_each        = var.kubernetes
+  count_in        = each.value.count
+  vm_node_name_in = each.key
+  target_node_in  = each.value.target
+  clone_in        = each.value.clone_template
+  memory_in       = each.value.hardware.memory
+  os_type_in      = each.value.os_type
+  cores_in        = each.value.hardware.cores
   #TODO add condition that it can not be lower than the value specified in the template creation, currently 6
   size_in         = each.value.disk.size
   storage_in      = each.value.disk.storage
@@ -22,10 +22,10 @@ module "node" {
 
 # generate inventory file for Ansible
 resource "local_file" "hosts_cfg" {
-  content = templatefile("${path.root}/node/templates/hosts.tpl",
+  content = templatefile("${path.root}/../../templates/hosts-k3s.tpl",
     {
-      master_nodes = module.node["rick"].node_output
-      worker_nodes = module.node["morty"].node_output
+      master_nodes = module.vm_node["rick"].vm_node_output
+      worker_nodes = module.vm_node["morty"].vm_node_output
     }
   )
   filename = "${path.root}/../../../ansible/inventory/k3s.ini"
@@ -33,18 +33,18 @@ resource "local_file" "hosts_cfg" {
 
 # generate nginx conf file
 resource "local_file" "nginx_cfg" {
-  content = templatefile("${path.root}/node/templates/nginx.tpl",
+  content = templatefile("${path.root}/../../templates/nginx.tpl",
     {
-      master_nodes = module.node["rick"].node_output
+      master_nodes = module.vm_node["rick"].vm_node_output
     }
   )
   filename = "${path.root}/../../../ansible/playbooks/nginx-conf/nginx-k3s.conf"
 }
 # generate nginx conf file
 resource "local_file" "nginx_ex_cfg" {
-  content = templatefile("${path.root}/node/templates/nginx-ex.tpl",
+  content = templatefile("${path.root}/../../templates/nginx-ex.tpl",
     {
-      worker_nodes = module.node["morty"].node_output
+      worker_nodes = module.vm_node["morty"].vm_node_output
     }
   )
   filename = "${path.root}/../../../ansible/playbooks/nginx-conf/nginx-external.conf"

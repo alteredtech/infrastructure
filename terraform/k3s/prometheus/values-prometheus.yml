@@ -144,6 +144,16 @@ grafana:
     url: http://loki.loki.svc:3100
     version: 1
     editable: false
+  - name: proxmox
+    type: influxdb
+    access: proxy
+    orgId: 1
+    url: http://database-1.alteredtech.home:8086
+    database: proxmox
+    jsonData:
+      httpMode: GET
+    version: 1
+    editable: false
 ## Deploy a Prometheus instance
 ##
 prometheus:

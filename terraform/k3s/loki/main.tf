@@ -8,7 +8,7 @@ resource "helm_release" "loki_logs" {
     "${file("values-loki.yml")}"
   ]
   set {
-    name = "config.lokiAddress"
+    name  = "config.lokiAddress"
     value = "http://${var.release_name}:3100/loki/api/v1/push"
   }
 }

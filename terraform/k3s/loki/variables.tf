@@ -1,3 +1,3 @@
 variable "release_name" {
-    default = "loki"
+  default = "loki"
 }
