@@ -18,9 +18,16 @@ do
     if [[ $3 == 1 ]]
     then
         echo "variable \"$value\"{}" >> $2
+    elif [[ $3 == 2 ]]
+    then
+        cat >> $2 << EOF
+variable "$value" {
+    default = 
+}
+EOF
     else
         cat >> $2 << EOF
-variable "$value"{
+variable "$value" {
     default = 
     description = 
 }

@@ -1,11 +1,9 @@
-resource "helm_release" "uptime_kuma" {
-  name             = "up-kuma"
-  create_namespace = true
-  namespace        = "kuma"
-  repository       = "https://dirsigler.github.io/uptime-kuma-helm"
-  chart            = "uptime-kuma"
-
-  values = [
-    "${file("values-kuma.yml")}"
-  ]
+module "helm_release" {
+  source               = "../../modules/helm-tf"
+  name                 = var.name
+  namespace            = var.namespace
+  create_namespace     = var.create_namespace
+  chart_repo           = var.chart_repo
+  chart                = var.chart
+  values_file_location = var.values_file_location
 }

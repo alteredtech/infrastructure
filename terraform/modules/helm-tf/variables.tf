@@ -6,41 +6,55 @@ variable "namespace" {
   default     = "default"
   description = "The namespace to install the release into."
 }
-variable "create_ns" {
+variable "create_namespace" {
   default     = false
   description = "Create the namespace if it does not yet exist."
 }
+variable "values_file_location" {
+  default     = "./values/values.yaml"
+  description = "List of values in raw yaml to pass to helm. Values will be merged, in order, as Helm does with multiple -f options."
+}
 variable "chart_repo" {
+  default     = null
   description = "Repository URL where to locate the requested chart."
 }
-variable "chart_name" {
+variable "chart" {
   description = "Chart name to be installed. The chart name can be local path, a URL to a chart, or the name of the chart if repository is specified. It is also possible to use the <repository>/<chart> format here if you are running Terraform on a system that the repository has been added to with helm repo add but this is not recommended."
 }
 variable "chart_version" {
+  default     = null
   description = "Specify the exact chart version to install. If this is not specified, the latest version is installed."
 }
 variable "set_values" {
+  default     = []
   description = "Value block with custom values to be merged with the values yaml."
 }
 variable "set_sensitive_values" {
+  default     = []
   description = "Value block with custom sensitive values to be merged with the values yaml that won't be exposed in the plan's diff."
 }
 variable "repository_key_file" {
+  default     = null
   description = "The repositories cert key file."
 }
 variable "repository_cert_file" {
+  default     = null
   description = " The repositories cert file."
 }
 variable "repository_ca_file" {
+  default     = null
   description = "The Repositories CA File."
 }
 variable "repository_username" {
+  default     = null
   description = "Username for HTTP basic authentication against the repository."
 }
 variable "repository_password" {
+  default     = null
   description = "Password for HTTP basic authentication against the repository."
 }
 variable "devel" {
+  default     = null
   description = "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If version is set, this is ignored."
 }
 variable "verify" {
@@ -48,7 +62,7 @@ variable "verify" {
   description = "Verify the package before installing it. Helm uses a provenance file to verify the integrity of the chart; this must be hosted alongside the chart."
 }
 variable "keyring" {
-  default     = "/.gnupg/pubring.gpg"
+  default     = null
   description = "Location of public keys used for verification. Used only if verify is true."
 }
 variable "timeout" {
@@ -116,10 +130,8 @@ variable "replace" {
   description = "Re-use the given name, only if that name is a deleted release which remains in the history. This is unsafe in production."
 }
 variable "description" {
+  default     = null
   description = "Set release description attribute (visible in the history)."
-}
-variable "postrender" {
-  description = "Configure a command to run after helm renders the manifest which can alter the manifest contents."
 }
 variable "lint" {
   default     = false

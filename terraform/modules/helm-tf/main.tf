@@ -1,13 +1,13 @@
 resource "helm_release" "helm_tf" {
   name             = var.name
   namespace        = var.namespace
-  create_namespace = var.create_ns
+  create_namespace = var.create_namespace
   repository       = var.chart_repo
-  chart            = var.chart_name
+  chart            = var.chart
   version          = var.chart_version
 
   values = [
-    "${file("./values/values.yaml")}"
+    "${file(var.values_file_location)}"
   ]
 
   dynamic "set" {
@@ -54,6 +54,5 @@ resource "helm_release" "helm_tf" {
   dependency_update          = var.dependency_update
   replace                    = var.replace
   description                = var.description
-  postrender                 = var.postrender
   lint                       = var.lint
 }

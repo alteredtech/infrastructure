@@ -1,3 +1,7 @@
 locals {
-  runner_token = sensitive("${data.vault_generic_secret.gitlab_runner.data["runner-token"]}")
+  set_sensitive_values = [{
+    name  = "runnerRegistrationToken"
+    value = "${data.vault_generic_secret.gitlab_runner.data["runner-token"]}"
+    type  = "auto"
+  }]
 }

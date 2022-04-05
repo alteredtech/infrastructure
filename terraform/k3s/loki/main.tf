@@ -1,14 +1,9 @@
-resource "helm_release" "loki_logs" {
-  name             = var.release_name
-  create_namespace = true
-  namespace        = var.release_name
-  chart            = "./loki-stack"
-
-  values = [
-    "${file("values-loki.yml")}"
-  ]
-  set {
-    name  = "config.lokiAddress"
-    value = "http://${var.release_name}:3100/loki/api/v1/push"
-  }
+module "helm_release" {
+  source               = "../../modules/helm-tf"
+  name                 = var.name
+  namespace            = var.namespace
+  create_namespace     = var.create_namespace
+  chart                = var.chart
+  values_file_location = var.values_file_location
+  set_values           = var.set_values
 }
