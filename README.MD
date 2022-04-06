@@ -1,3 +1,6 @@
+# Note for Github.
+This is the public version of this repo and is not kept up-to-date. This is mainly for viewing the project on my resume website until I am happy with the state of the project for constant updates to be pushed.
+
 # Alteredtech homelab/infrastructure
 
 Automating the creation of my homelab infrastructure. 
